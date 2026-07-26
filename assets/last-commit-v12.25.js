@@ -42,6 +42,7 @@
   var videoTailTimer = 0;
   var videoTransitionTimer = 0;
   var activeVideoPerformance = null;
+  var transparentVideoSupport = searchParams.get("video-alpha") === "0" ? false : null;
   var clickTimer = 0;
   var longPressTimer = 0;
   var pointerFrame = 0;
@@ -82,6 +83,7 @@
   var lastThreshold = "";
   var lastPhaseId = "";
   var lastWorkbenchContext = "";
+  var compactLayoutQuery = window.matchMedia("(max-width: 760px)");
   var motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   var qaMode = searchParams.has("qa");
   var forceMorning = searchParams.get("morning") === "1" || searchParams.get("view") === "morning";
@@ -395,7 +397,8 @@
 
   function resizeDump() {
     el.dump.style.height = "auto";
-    var height = Math.max(185, Math.min(318, el.dump.scrollHeight));
+    var minimum = compactLayoutQuery.matches ? 118 : 185;
+    var height = Math.max(minimum, Math.min(318, el.dump.scrollHeight));
     el.dump.style.height = height + "px";
     el.dump.style.overflowY = el.dump.scrollHeight > height + 1 ? "auto" : "hidden";
     el.dump.closest(".note-paper").style.minHeight = height + "px";
@@ -1429,6 +1432,7 @@
     el.catPerformance.onerror = null;
     el.catPerformance.ontimeupdate = null;
     el.catPerformance.onloadedmetadata = null;
+    el.catPerformance.onloadeddata = null;
     try {
       el.catPerformance.currentTime = 0;
     } catch (error) {
@@ -1441,6 +1445,25 @@
     el.tonight.removeAttribute("data-video-exit");
     el.tonight.removeAttribute("data-video-transition");
     activeVideoPerformance = null;
+  }
+
+  function videoFrameHasAlpha(video) {
+    if (transparentVideoSupport !== null) return transparentVideoSupport;
+    try {
+      var canvas = document.createElement("canvas");
+      canvas.width = 2;
+      canvas.height = 2;
+      var context = canvas.getContext("2d", { willReadFrequently: true });
+      if (!context) return false;
+      context.clearRect(0, 0, 2, 2);
+      context.drawImage(video, 0, 0, 2, 2);
+      var pixels = context.getImageData(0, 0, 2, 2).data;
+      transparentVideoSupport = pixels[3] < 32 || pixels[7] < 32 || pixels[11] < 32 || pixels[15] < 32;
+    } catch (error) {
+      transparentVideoSupport = false;
+    }
+    document.documentElement.dataset.videoAlpha = transparentVideoSupport ? "supported" : "fallback";
+    return transparentVideoSupport;
   }
 
   function containedMediaRect(containerRect, sourceWidth, sourceHeight) {
@@ -1496,7 +1519,7 @@
 
   function playPetVideo(actionId, token) {
     var performance = videoActions[actionId];
-    if (!performance || !el.catPerformance || motionQuery.matches) return false;
+    if (!performance || !el.catPerformance || motionQuery.matches || transparentVideoSupport === false) return false;
     var base = "assets/pixel-cat/video-v2/" + performance.id;
     var video = el.catPerformance;
     stopPetVideo();
@@ -1513,6 +1536,10 @@
     function revealVideo() {
       if (token !== actionToken) return;
       if (playbackStarted) return;
+      if (!videoFrameHasAlpha(video)) {
+        fallBackToCodeMotion();
+        return;
+      }
       playbackStarted = true;
       alignPetVideo(performance);
       el.tonight.removeAttribute("data-video-exit");
@@ -1540,6 +1567,7 @@
     video.onloadedmetadata = function () {
       if (token === actionToken) alignPetVideo(performance);
     };
+    video.onloadeddata = revealVideo;
     video.onplaying = revealVideo;
     el.tonight.dataset.videoAction = performance.id;
 
@@ -1567,7 +1595,7 @@
     video.onerror = function () {
       fallBackToCodeMotion();
     };
-    video.play().then(revealVideo).catch(fallBackToCodeMotion);
+    video.play().catch(fallBackToCodeMotion);
     return true;
   }
 
@@ -1995,7 +2023,7 @@
 
   function petSnapshot() {
     return {
-      version: "12.30",
+      version: "12.31",
       action: currentAction || "idle",
       priority: currentPriority,
       reaction: el.cat.dataset.reaction || "",
@@ -2008,7 +2036,8 @@
       captured: document.body.classList.contains("mouse-captured"),
       focusMode: document.body.classList.contains("focus-mode"),
       hidden: document.hidden,
-      reducedMotion: motionQuery.matches
+      reducedMotion: motionQuery.matches,
+      videoAlpha: transparentVideoSupport === null ? "untested" : (transparentVideoSupport ? "supported" : "fallback")
     };
   }
 
@@ -2016,7 +2045,7 @@
     if (!qaMode) return;
     document.documentElement.dataset.qa = "true";
     var lab = {
-      version: "12.30",
+      version: "12.31",
       actions: Object.keys(petActions),
       focusScenes: focusScenes.map(function (scene) { return scene.id; }),
       events: ["time-change", "task-add", "task-done", "all-done", "task-clear", "task-undo", "handoff", "warning", "theme", "breathe"],
@@ -2231,6 +2260,7 @@
   if (motionQuery.addEventListener) motionQuery.addEventListener("change", handleMotionChange);
   else if (motionQuery.addListener) motionQuery.addListener(handleMotionChange);
   window.addEventListener("resize", function () {
+    resizeDump();
     if (activeVideoPerformance) alignPetVideo(activeVideoPerformance);
   });
 

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-VERSION="${1:-v0.11.0-preview}"
+VERSION="${1:-v0.11.1-preview}"
 DESTINATION="${2:-$ROOT/release}"
 if [[ "$DESTINATION" != /* ]]; then
   DESTINATION="$ROOT/$DESTINATION"
@@ -52,6 +52,7 @@ for file in \
   last-commit-v12.22.css \
   last-commit-v12.24.css \
   last-commit-v12.25.css \
+  last-commit-v12.31.css \
   legal-v1.css \
   last-commit-v12.15.js \
   last-commit-v12.20.js \
