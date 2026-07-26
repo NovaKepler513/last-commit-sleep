@@ -1,0 +1,39 @@
+@import url("./last-commit-v12.19.css");
+
+/* v12.20：版权入口直达说明页；拉开相邻的收工与入睡标记。 */
+
+.copyright-butterfly {
+  text-decoration: none;
+}
+
+.time-horizon {
+  height: 78px;
+}
+
+.horizon-label {
+  top: 39px;
+  line-height: 14px;
+}
+
+.horizon-bed {
+  top: 60px;
+}
+
+body.focus-mode .time-horizon {
+  height: 78px;
+}
+
+body.focus-mode .horizon-label {
+  top: 39px;
+}
+
+body.focus-mode .horizon-bed {
+  top: 60px;
+}
+
+@media (max-width: 760px) {
+  .time-horizon,
+  body.focus-mode .time-horizon {
+    height: 38px;
+  }
+}

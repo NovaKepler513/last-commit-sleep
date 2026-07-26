@@ -1,0 +1,93 @@
+@import url("./last-commit-v12.12.css");
+
+/* v12.13：作者入口缩成一枚微型蝴蝶印；姓名与机构只在展开层出现。 */
+
+.copyright-butterfly {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--faint);
+  opacity: .76;
+  transition: color .22s ease, opacity .22s ease, transform .28s var(--ease-out);
+}
+
+.copyright-butterfly:hover,
+.copyright-butterfly:focus-visible {
+  color: var(--ink);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.copyright-butterfly:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.butterfly-seal {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  overflow: hidden;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--surface-solid) 58%, transparent);
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--bg) 48%, transparent);
+}
+
+.butterfly-emoji {
+  display: block;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  filter: saturate(.94);
+  transform: translateY(-.2px) rotate(-2deg);
+  transition: filter .22s ease, transform .32s var(--ease-out);
+}
+
+.copyright-butterfly:hover .butterfly-emoji,
+.copyright-butterfly:focus-visible .butterfly-emoji {
+  filter: grayscale(0) saturate(1);
+  transform: translateY(-.7px) rotate(2deg) scale(1.06);
+}
+
+.rights-butterfly {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--surface-solid) 72%, transparent);
+  box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--bg) 42%, transparent);
+}
+
+.rights-butterfly span {
+  display: block;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  filter: saturate(.96);
+  transform: translateY(-.3px) rotate(-2deg);
+}
+
+@media (max-width: 760px) {
+  .copyright-butterfly {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copyright-butterfly,
+  .butterfly-emoji {
+    transition: none;
+  }
+}

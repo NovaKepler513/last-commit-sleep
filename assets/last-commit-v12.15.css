@@ -1,0 +1,12 @@
+@import url("./last-commit-v12.14.css");
+
+/* v12.15：完成页装饰层不再拦截“回到页面”；操作层始终位于可点击平面。 */
+
+.complete-orbit {
+  pointer-events: none;
+}
+
+.complete-screen button {
+  position: relative;
+  z-index: 3;
+}

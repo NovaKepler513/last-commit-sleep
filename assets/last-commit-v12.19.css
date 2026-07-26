@@ -1,0 +1,20 @@
+@import url("./last-commit-v12.18.css");
+
+/* v12.19：按手绘笔迹重心校准版权印，并给原稿补上两根细触须。 */
+
+.butterfly-icon {
+  width: 17px;
+  height: 17px;
+  -webkit-mask-image: url("./copyright-butterfly/handdrawn-butterfly-v2.png");
+  mask-image: url("./copyright-butterfly/handdrawn-butterfly-v2.png");
+}
+
+.rights-butterfly .butterfly-icon {
+  width: 29px;
+  height: 29px;
+}
+
+.copyright-butterfly:hover .butterfly-icon,
+.copyright-butterfly:focus-visible .butterfly-icon {
+  transform: translateY(-.5px) rotate(1deg) scale(1.035);
+}

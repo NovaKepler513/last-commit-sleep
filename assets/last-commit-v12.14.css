@@ -1,0 +1,167 @@
+@import url("./last-commit-v12.13.css");
+
+/* v12.14：呼吸区使用真实双时钟；圆心倒数当前动作，右侧累计本次用时。 */
+
+.breath-dock {
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 7px 16px;
+  max-width: 260px;
+}
+
+.breath-orb {
+  --breath-scale: .78;
+  position: relative;
+  display: grid;
+  grid-row: 1;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  overflow: visible;
+  border-color: color-mix(in srgb, var(--accent) 82%, var(--ink));
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+  isolation: isolate;
+  transform: none;
+}
+
+.breath-orb::before,
+.breath-orb-ring {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  z-index: -1;
+  border: 1px solid color-mix(in srgb, var(--accent) 78%, transparent);
+  border-radius: 50%;
+  transform: scale(var(--breath-scale));
+  transition: border-color .28s ease, opacity .28s ease;
+  will-change: transform;
+}
+
+.breath-orb::before {
+  inset: -1px;
+  border-color: color-mix(in srgb, var(--accent) 88%, transparent);
+  opacity: .34;
+}
+
+.breath-orb:hover,
+.breath-orb:focus-visible {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+
+.breath-orb:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 5px;
+}
+
+.breath-orb.is-running {
+  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.breath-orb.is-paused::before,
+.breath-orb.is-paused .breath-orb-ring {
+  border-style: dashed;
+  opacity: .55;
+}
+
+.breath-orb.is-complete {
+  --breath-scale: 1;
+}
+
+.breath-display {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  color: var(--ink);
+  font: 500 11px/1 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.breath-display strong {
+  min-width: 1ch;
+  color: var(--accent);
+  font: 600 16px/1 var(--mono);
+}
+
+.breath-readout {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.breath-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font: 500 10px/1 var(--sans);
+}
+
+.breath-meta time {
+  color: var(--ink);
+  font: 500 12px/1 var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.breath-dock .breath-readout > p {
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.breath-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.breath-actions button {
+  padding: 2px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--muted);
+  background: transparent;
+  font-size: 10px;
+}
+
+.breath-actions button:first-child {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+
+.breath-actions button:hover,
+.breath-actions button:focus-visible {
+  color: var(--accent);
+}
+
+.breath-actions button:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.breath-dock .finish-button {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 2px;
+}
+
+@media (max-width: 760px) {
+  .breath-dock {
+    grid-template-columns: 64px minmax(0, 1fr);
+    max-width: 260px;
+  }
+
+  .breath-orb {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breath-orb::before,
+  .breath-orb-ring {
+    transform: scale(.9);
+    will-change: auto;
+  }
+}

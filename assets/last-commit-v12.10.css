@@ -1,0 +1,47 @@
+@import url("./last-commit-v12.9.css");
+
+/* v12.10：标签、时间框与节点共用同一条中心轴；路线按真实阶段推进。 */
+
+.orbit-active {
+  stroke-dashoffset: 1;
+}
+
+.orbit-now rect {
+  fill: var(--accent);
+  stroke: none;
+}
+
+.orbit-now text {
+  fill: var(--muted);
+  font: 550 9px/1 var(--mono);
+  letter-spacing: .04em;
+  text-anchor: middle;
+}
+
+.orbit-now[data-stage="before"] text {
+  fill: var(--accent);
+}
+
+@media (min-width: 761px) {
+  .orbit-plan {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .time-node,
+  .node-off,
+  .node-bed,
+  .node-wake {
+    justify-self: center;
+    text-align: center;
+  }
+
+  .time-node label {
+    text-align: center;
+  }
+
+  .node-wake .time-picker-menu {
+    right: auto;
+    left: 0;
+  }
+}

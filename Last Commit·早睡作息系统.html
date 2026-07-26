@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="tide">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0c171b">
+  <meta name="color-scheme" content="dark light">
+  <meta name="author" content="Nova Kepler · 天与视界">
+  <meta name="copyright" content="© 2026 Nova Kepler · 天与视界">
+  <title>Last Commit · 早睡作息系统</title>
+  <link rel="icon" href="data:,">
+  <link rel="license" href="LICENSE">
+  <link rel="stylesheet" href="assets/last-commit-v12.25.css?v=12.30">
+  <link rel="preload" as="image" href="assets/pixel-cat/theme-v12.1/pixel-cat-tide-v12.1.png">
+  <link rel="prefetch" as="image" href="assets/pixel-cat/theme-v12.1/pixel-cat-paper-v12.1.png">
+  <link rel="prefetch" as="image" href="assets/pixel-cat/theme-v12.1/pixel-cat-plum-v12.1.png">
+  <link rel="prefetch" as="image" href="assets/pixel-cat/theme-v12.1/pixel-cat-dawn-v12.1.png">
+  <link rel="preload" as="image" href="assets/pixel-cat/video-v2/video-idle-native-v12.28.png">
+</head>
+<body>
+  <div class="prelude" id="prelude" role="dialog" aria-modal="true" aria-labelledby="prelude-title">
+    <div class="prelude-grid" aria-hidden="true"></div>
+    <div class="prelude-orbit" aria-hidden="true">
+      <span class="prelude-orbit-ring"></span>
+      <span class="prelude-orbit-mark"></span>
+    </div>
+    <div class="prelude-copy">
+      <p class="prelude-brand">LAST COMMIT / NIGHT SHIFT</p>
+      <h1 id="prelude-title">今晚，时间从这里合上。</h1>
+    </div>
+    <div class="prelude-clock" aria-hidden="true">
+      <span id="prelude-hour">22</span><i>:</i><span id="prelude-minute">30</span>
+    </div>
+    <div class="prelude-cut" aria-hidden="true">
+      <span class="prelude-cut-line"></span>
+      <span class="prelude-cut-label">STOP WORK</span>
+    </div>
+    <img class="prelude-cat" data-theme-cat src="assets/pixel-cat/theme-v12.1/pixel-cat-tide-v12.1.png" alt="">
+    <button class="prelude-enter" id="prelude-enter" type="button">
+      <span>进入今晚</span>
+      <span aria-hidden="true">↘</span>
+    </button>
+    <p class="prelude-hint">Enter</p>
+  </div>
+
+  <main class="app-shell" id="app">
+    <header class="topbar">
+      <a class="brand" href="#tonight" aria-label="回到今晚">
+        <span class="brand-glyph" aria-hidden="true"><i></i></span>
+        <span>LAST COMMIT</span>
+      </a>
+      <div class="top-status" aria-label="本地时间">
+        <span class="signal-dot" aria-hidden="true"></span>
+        <time id="clock">--:--:--</time>
+      </div>
+      <div class="top-actions">
+        <button class="text-action" id="replay-intro" type="button">开场</button>
+        <div class="theme-switcher" role="group" aria-label="页面颜色">
+          <button class="theme-choice is-current" data-theme-choice="tide" type="button" aria-label="暮海" aria-pressed="true"><span></span></button>
+          <button class="theme-choice" data-theme-choice="paper" type="button" aria-label="纸月" aria-pressed="false"><span></span></button>
+          <button class="theme-choice" data-theme-choice="plum" type="button" aria-label="梅夜" aria-pressed="false"><span></span></button>
+          <button class="theme-choice" data-theme-choice="dawn" type="button" aria-label="天青" aria-pressed="false"><span></span></button>
+        </div>
+        <button class="focus-toggle" id="focus-toggle" type="button" aria-pressed="false">
+          <span class="focus-icon" aria-hidden="true"></span>
+          <span>专注</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="night-field interactive-zone" id="tonight" data-zone="tonight" aria-labelledby="phase-title">
+      <div class="field-ambient" aria-hidden="true">
+        <span class="longitude longitude-a"></span>
+        <span class="longitude longitude-b"></span>
+        <span class="field-index">LC / <b id="night-index">000</b></span>
+      </div>
+      <button class="focus-exit" id="focus-exit" type="button">返回全览</button>
+
+      <div class="phase-copy">
+        <p class="phase-kicker" id="phase-kicker">今晚 22:30 收工</p>
+        <h1 id="phase-title">距离收工</h1>
+      </div>
+
+      <div class="countdown-wrap">
+        <div class="countdown" id="countdown" aria-label="距离收工还有">
+          <span class="count-hours">--</span><i>:</i><span class="count-minutes">--</span><i>:</i><span class="count-seconds">--</span>
+        </div>
+        <p class="phase-note" id="phase-note" aria-live="polite"></p>
+      </div>
+
+      <div class="cat-performance-stage" id="cat-performance-stage" aria-hidden="true">
+        <video class="cat-performance" id="cat-performance" muted playsinline preload="metadata"></video>
+      </div>
+
+      <button class="cat-companion" id="cat-companion" type="button" aria-label="和像素猫互动" aria-describedby="cat-line">
+        <span class="cat-moon" aria-hidden="true"></span>
+        <span class="cat-shadow" aria-hidden="true"></span>
+        <span class="cat-aura" aria-hidden="true"></span>
+        <span class="cat-look" id="cat-look" aria-hidden="true">
+          <img class="cat-visual" data-runtime-cat src="assets/pixel-cat/video-v2/video-idle-native-v12.28.png" alt="">
+          <span class="cat-scan"></span>
+        </span>
+        <span class="cat-headsup" aria-hidden="true">
+          <b id="cat-state-kind">IDLE</b>
+          <i id="cat-state-detail">watching time</i>
+        </span>
+        <span class="cat-fx" id="cat-fx" aria-hidden="true"></span>
+      </button>
+      <div class="cat-line" id="cat-line" aria-live="polite">你先忙。我在收工那格旁边趴着。</div>
+
+      <div class="time-horizon" aria-label="一天二十四小时的作息循环">
+        <span class="horizon-caption" aria-hidden="true">24H / DAY LOOP</span>
+        <span class="horizon-segment horizon-sleep-early" id="horizon-sleep-early" aria-hidden="true"></span>
+        <span class="horizon-segment horizon-sleep-late" id="horizon-sleep-late" aria-hidden="true"></span>
+        <span class="horizon-segment horizon-awake" id="horizon-awake" aria-hidden="true"></span>
+        <span class="horizon-segment horizon-awake horizon-awake-wrap" id="horizon-awake-wrap" aria-hidden="true"></span>
+        <span class="horizon-segment horizon-winddown" id="horizon-winddown" aria-hidden="true"></span>
+        <span class="horizon-segment horizon-winddown horizon-winddown-wrap" id="horizon-winddown-wrap" aria-hidden="true"></span>
+        <span class="horizon-progress" id="horizon-progress"></span>
+        <span class="horizon-now" id="horizon-now"></span>
+        <span class="horizon-hour hour-00" aria-hidden="true">00</span>
+        <span class="horizon-hour hour-06" aria-hidden="true">06</span>
+        <span class="horizon-hour hour-12" aria-hidden="true">12</span>
+        <span class="horizon-hour hour-18" aria-hidden="true">18</span>
+        <span class="horizon-label horizon-off">收工 <b id="horizon-off">22:30</b></span>
+        <span class="horizon-label horizon-bed">入睡 <b id="horizon-bed">23:30</b></span>
+        <span class="horizon-label horizon-wake">起床 <b id="horizon-wake">07:30</b></span>
+      </div>
+    </section>
+
+    <section class="workbench" aria-label="今晚安排与明早任务">
+      <div class="workbench-rail" aria-hidden="true"><span id="rail-marker"></span></div>
+
+      <section class="plan-panel interactive-zone" id="plan-panel" data-zone="plan" aria-labelledby="plan-title">
+        <header class="section-heading">
+          <span class="section-index">01</span>
+          <h2 id="plan-title">今晚怎么安排</h2>
+        </header>
+
+        <div class="orbit-plan" aria-label="今晚时间轴：现在、收工、入睡与起床">
+          <svg class="orbit-map" viewBox="0 0 720 128" aria-hidden="true" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="night-route-gradient" x1="0" x2="1">
+                <stop class="orbit-stop-a" offset="0"></stop>
+                <stop class="orbit-stop-b" offset=".58"></stop>
+                <stop class="orbit-stop-c" offset="1"></stop>
+              </linearGradient>
+            </defs>
+            <path class="orbit-halo" d="M28 82 C188 112 532 112 692 82"></path>
+            <path class="orbit-echo" d="M28 93 C204 119 516 119 692 93"></path>
+            <path class="orbit-track" d="M28 82 C188 112 532 112 692 82"></path>
+            <path class="orbit-active" id="orbit-active" pathLength="1" d="M28 82 C188 112 532 112 692 82"></path>
+            <g class="orbit-stations">
+              <line x1="120" y1="66" x2="120" y2="94.35"></line>
+              <line x1="360" y1="69.5" x2="360" y2="104.5"></line>
+              <line x1="600" y1="66" x2="600" y2="94.35"></line>
+              <rect x="115" y="89.35" width="10" height="10" rx="1" transform="rotate(45 120 94.35)"></rect>
+              <rect x="355" y="99.5" width="10" height="10" rx="1" transform="rotate(45 360 104.5)"></rect>
+              <rect x="595" y="89.35" width="10" height="10" rx="1" transform="rotate(45 600 94.35)"></rect>
+            </g>
+            <g class="orbit-now" id="orbit-now" data-stage="before" transform="translate(72 88.93)">
+              <rect x="-3" y="-3" width="6" height="6" transform="rotate(45)"></rect>
+              <text id="orbit-now-label" x="0" y="-12">现在</text>
+            </g>
+          </svg>
+          <div class="time-node node-off">
+            <label for="off-time">收工</label>
+            <select id="off-time" aria-label="收工时间，每 15 分钟一个选项"></select>
+          </div>
+          <div class="time-node node-bed">
+            <label for="bed-time">入睡</label>
+            <select id="bed-time" aria-label="入睡时间，每 15 分钟一个选项"></select>
+          </div>
+          <div class="time-node node-wake">
+            <label for="wake-time">起床</label>
+            <select id="wake-time" aria-label="起床时间，每 15 分钟一个选项"></select>
+          </div>
+        </div>
+
+        <div class="plan-readout">
+          <div class="plan-stats" aria-label="今晚安排的时长">
+            <span><small>今天清醒</small><b id="awake-stat">15 小时</b></span>
+            <span><small>停工以后</small><b id="buffer-stat">1 小时</b></span>
+            <span><small>睡眠</small><b id="sleep-stat">8 小时</b></span>
+          </div>
+          <div class="sleep-goal">
+            <small>想睡多久</small>
+            <div class="sleep-goal-stepper" role="group" aria-label="默认睡眠时长，每次调整十五分钟">
+              <button id="sleep-goal-down" type="button" aria-label="减少十五分钟">−</button>
+              <output class="sleep-goal-output" id="sleep-goal-output" aria-live="polite">8</output>
+              <button id="sleep-goal-up" type="button" aria-label="增加十五分钟">＋</button>
+            </div>
+            <span class="sleep-goal-unit">小时</span>
+          </div>
+          <button class="quiet-button recalculate-button" id="recalculate" type="button">
+            <span id="recalculate-label">按 8 小时重算</span>
+            <small>从明早起床往前推</small>
+          </button>
+        </div>
+        <p class="inline-feedback" id="plan-feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="handoff-panel interactive-zone" id="handoff-panel" data-zone="handoff" aria-labelledby="handoff-title">
+        <header class="section-heading">
+          <span class="section-index">02</span>
+          <h2 id="handoff-title">明早先做什么</h2>
+        </header>
+
+        <div class="handoff-grid">
+          <div class="note-field">
+            <label id="dump-label" for="brain-dump">今天做到哪儿了</label>
+            <div class="note-paper">
+              <textarea id="brain-dump" rows="1" placeholder="留一句，明早接得上"></textarea>
+            </div>
+          </div>
+
+          <div class="task-field">
+            <label id="task-label" for="task-input">明早先做</label>
+            <div class="task-entry">
+              <input id="task-input" type="text" autocomplete="off" placeholder="写一件，回车加入">
+              <button id="task-add" type="button" aria-label="加入明早要做的事">＋</button>
+            </div>
+            <div class="task-list-shell">
+              <ul class="task-list" id="task-list" aria-live="polite"></ul>
+              <span class="task-status" id="task-status" aria-live="polite">还没写明早的事</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="handoff-actions">
+          <button class="primary-action" id="handoff-button" type="button">
+            <span id="handoff-button-label">写好了，收工</span><i aria-hidden="true">↘</i>
+          </button>
+          <div class="handoff-utilities">
+            <button class="restore-tasks" id="task-undo" type="button" hidden>恢复清单</button>
+            <button class="clear-tasks" id="task-clear" type="button" disabled>清空清单</button>
+            <details class="backup-menu" id="backup-menu">
+              <summary>留个备份</summary>
+              <div>
+                <button id="export-copy" type="button">复制</button>
+                <button id="export-md" type="button">Markdown</button>
+                <button id="export-ics" type="button">日历</button>
+              </div>
+            </details>
+          </div>
+          <p class="inline-feedback handoff-feedback" id="handoff-feedback" aria-live="polite"></p>
+        </div>
+      </section>
+    </section>
+
+    <section class="winddown-strip interactive-zone" id="winddown" data-zone="winddown" aria-labelledby="winddown-title">
+      <header class="section-heading">
+        <span class="section-index">03</span>
+        <div>
+          <h2 id="winddown-title">准备睡觉</h2>
+          <p id="winddown-time">离睡觉还有 1 小时</p>
+        </div>
+      </header>
+
+      <div class="winddown-locked" id="winddown-locked">
+        <span></span>
+        <p>交接写好后，从这里接着走。</p>
+      </div>
+
+      <div class="winddown-body" id="winddown-body" hidden>
+        <ol class="shutdown-list" id="shutdown-list"></ol>
+        <aside class="breath-dock" aria-label="三轮呼吸调节">
+          <button class="breath-orb" id="breath-button" type="button" aria-label="开始三轮呼吸">
+            <span class="breath-orb-ring" aria-hidden="true"></span>
+            <span class="breath-display">
+              <span id="breath-word">准备</span>
+              <strong id="breath-count">4</strong>
+            </span>
+          </button>
+          <div class="breath-readout">
+            <div class="breath-meta">
+              <span id="breath-round">三轮</span>
+              <time id="breath-elapsed" datetime="PT0S">00:00</time>
+            </div>
+            <p id="breath-copy">吸 4 秒，停 2 秒，呼 6 秒。</p>
+            <div class="breath-actions">
+              <button id="breath-toggle" type="button">开始</button>
+              <button id="breath-reset" type="button" hidden>重来</button>
+            </div>
+          </div>
+          <button class="finish-button" id="finish-night" type="button">今晚收好</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="history-band" aria-labelledby="history-title">
+      <div class="calendar-heading section-heading">
+        <p class="section-index">04</p>
+        <h2 id="history-title">睡眠月历</h2>
+      </div>
+      <div class="calendar-card" id="calendar-card">
+        <div class="calendar-toolbar">
+          <button id="calendar-prev" type="button" aria-label="上一个月">←</button>
+          <time id="calendar-month">2026 / 07</time>
+          <button id="calendar-next" type="button" aria-label="下一个月">→</button>
+        </div>
+        <div class="history-track" id="history-track" role="grid" aria-label="每月收工记录"></div>
+      </div>
+      <div class="calendar-summary">
+        <strong id="history-summary">本月按时停下 0 晚</strong>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <p class="footer-note">
+        内容保存在这个浏览器里，离线也能用。
+        <span class="motion-status">五种稳定动作使用连贯视频；三种前冲动作暂时退回整猫定帧。</span>
+      </p>
+      <div class="footer-actions">
+        <button id="reset-tonight" type="button">重置今晚</button>
+        <button class="copyright-butterfly" id="copyright-trigger" type="button" aria-haspopup="dialog" aria-controls="copyright-dialog" aria-label="查看版权与开源说明" title="版权与开源说明">
+          <span class="butterfly-seal" aria-hidden="true">
+            <span class="butterfly-icon"></span>
+          </span>
+        </button>
+      </div>
+    </footer>
+  </main>
+
+  <dialog class="rights-dialog" id="copyright-dialog" aria-labelledby="rights-title">
+    <div class="rights-sheet">
+      <button class="rights-close" id="copyright-close" type="button" aria-label="关闭版权说明">×</button>
+
+      <header class="rights-heading">
+        <div class="rights-butterfly" aria-hidden="true">
+          <span class="butterfly-icon"></span>
+        </div>
+        <div class="rights-heading-copy">
+          <p class="rights-kicker">COPYRIGHT / OPEN SOURCE</p>
+          <h2 id="rights-title">版权与开源</h2>
+        </div>
+      </header>
+
+      <div class="rights-tabs" role="tablist" aria-label="版权说明分类">
+        <button class="rights-tab" id="rights-tab-summary" type="button" role="tab" aria-selected="true" aria-controls="rights-panel-summary" data-rights-tab="rights-panel-summary">代码与归属</button>
+        <button class="rights-tab" id="rights-tab-assets" type="button" role="tab" aria-selected="false" aria-controls="rights-panel-assets" data-rights-tab="rights-panel-assets" tabindex="-1">视觉资产</button>
+        <button class="rights-tab" id="rights-tab-files" type="button" role="tab" aria-selected="false" aria-controls="rights-panel-files" data-rights-tab="rights-panel-files" tabindex="-1">下载文件</button>
+      </div>
+
+      <div class="rights-panels">
+        <section class="rights-panel" id="rights-panel-summary" role="tabpanel" aria-labelledby="rights-tab-summary">
+          <p class="rights-lead">页面代码已经开源。你可以去 GitHub 查看源码、下载项目，也可以继续了解猫咪角色和视觉素材的来源。</p>
+          <div class="rights-owner-block">
+            <span>© 2026 Nova Kepler · 天与视界</span>
+            <span>Nova Kepler · Tianyu Vision</span>
+          </div>
+          <div class="rights-file-list">
+            <a class="rights-file" href="https://github.com/NovaKepler513/last-commit-sleep" target="_blank" rel="noopener noreferrer">
+              <span><b>在 GitHub 查看开源项目</b><small>源代码、使用说明与版本更新</small></span><i>打开 ↗</i>
+            </a>
+          </div>
+          <dl class="rights-split">
+            <div>
+              <dt>页面代码</dt>
+              <dd>HTML、CSS、JavaScript 与代码示例使用 MIT License。可以阅读、修改和再发布，但需要保留版权与许可说明。</dd>
+            </div>
+            <div>
+              <dt>角色与视觉</dt>
+              <dd>包括暮海月白猫、纸月墨色猫、梅夜银紫猫、天青深蓝猫，以及相关图片、动画、视频和宣传视觉。具体使用方式见“视觉资产”。</dd>
+            </div>
+            <div>
+              <dt>外部资料</dt>
+              <dd>睡眠资料、论文、公共健康信息与技术标准的版权归各自作者和机构。</dd>
+            </div>
+            <div>
+              <dt>健康信息</dt>
+              <dd>Last Commit 是生活节奏与任务交接工具，不提供医疗建议。</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="rights-panel" id="rights-panel-assets" role="tabpanel" aria-labelledby="rights-tab-assets" hidden>
+          <p class="rights-lead">四只猫可以陪你使用这个项目，但不能被单独拿去做新的产品或素材。</p>
+          <h3>包含的资产</h3>
+          <ul>
+            <li>暮海月白猫、纸月墨色猫、梅夜银紫猫与天青深蓝猫；</li>
+            <li>由四套角色继续制作的图片、动画、视频和宣传视觉。</li>
+          </ul>
+          <h3>生成与制作</h3>
+          <p>第一只像素猫由 OpenAI 图像生成工具根据原创文字提示生成，没有上传外部猫咪图片作为输入。其余主题猫以项目母图继续生成和编辑；成品经过人工选片、角色设定、配色、去底、边缘处理、尺寸校准、界面组合与交互编排。</p>
+          <h3>需要另行许可</h3>
+          <ul>
+            <li>把角色单独做成素材包、其他产品、品牌、广告、商品或表情包；</li>
+            <li>据此改编、风格迁移、再训练，或建立新的角色资产；</li>
+            <li>把资产用于生成式 AI 的训练、微调、LoRA、数据集或模型评测。</li>
+          </ul>
+          <a class="rights-standalone" href="asset-license.html">单独打开完整视觉资产说明</a>
+        </section>
+
+        <section class="rights-panel" id="rights-panel-files" role="tabpanel" aria-labelledby="rights-tab-files" hidden>
+          <p class="rights-lead">需要保存到本地的文件，都放在这里。</p>
+          <div class="rights-file-list">
+            <a class="rights-file" href="LICENSE" download="Last-Commit-MIT-License.txt">
+              <span><b>MIT License</b><small>页面代码的开源许可</small></span><i>下载</i>
+            </a>
+            <a class="rights-file" href="ASSET-LICENSE.md" download="Last-Commit-Asset-License.md">
+              <span><b>角色与视觉说明</b><small>主题猫、图片、动画、视频与宣传视觉</small></span><i>下载</i>
+            </a>
+            <a class="rights-file" href="NOTICE.md" download="Last-Commit-Copyright-Notice.md">
+              <span><b>完整版权说明</b><small>署名、生成方式、外部资料与健康信息</small></span><i>下载</i>
+            </a>
+          </div>
+          <a class="rights-standalone" href="notice.html">单独打开完整版权说明</a>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="complete-screen" id="complete-screen" role="dialog" aria-modal="true" aria-labelledby="complete-title" hidden>
+    <div class="complete-orbit" aria-hidden="true"></div>
+    <img data-theme-cat src="assets/pixel-cat/theme-v12.1/pixel-cat-tide-v12.1.png" alt="">
+    <p>LAST COMMIT SAVED</p>
+    <h2 id="complete-title">今晚收好了。</h2>
+    <span id="complete-copy"></span>
+    <button id="complete-close" type="button">回到页面</button>
+  </div>
+
+  <div class="cursor-captive" id="cursor-captive" hidden aria-hidden="true">
+    <svg viewBox="0 0 24 32"><path d="M2 2v25l7-6 5 10 5-3-5-9h8z"></path></svg>
+  </div>
+
+  <script src="assets/last-commit-v12.25.js?v=12.30"></script>
+</body>
+</html>

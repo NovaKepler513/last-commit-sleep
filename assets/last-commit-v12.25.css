@@ -1,0 +1,174 @@
+@import url("./last-commit-v12.22.css");
+
+/* v12.28：待机帧保留视频原生像素，八段动作各自用短闪烁交接。 */
+
+/* v12.29：观测月环属于猫，不再独立钉在夜景右上角。 */
+.cat-moon {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  z-index: -1;
+  width: min(78%, 250px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--moon) 26%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--moon) 9%, transparent);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cat-performance-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--video-fade-ms, 420ms) cubic-bezier(.22, .72, .24, 1);
+  will-change: opacity, filter;
+}
+
+.cat-performance {
+  position: absolute;
+  display: block;
+  left: var(--video-left, 0);
+  top: var(--video-top, 0);
+  width: var(--video-width, 1280px);
+  height: var(--video-height, 720px);
+  max-width: none;
+  max-height: none;
+  object-fit: fill;
+  image-rendering: auto;
+  filter: drop-shadow(7px 10px 0 color-mix(in srgb, var(--cat-pixel-shadow) 34%, transparent));
+}
+
+.night-field[data-video-ready]:not([data-video-exit]) .cat-performance-stage {
+  opacity: 1;
+}
+
+.night-field[data-video-exit] .cat-performance-stage {
+  opacity: 0;
+}
+
+.cat-companion .cat-look {
+  transition:
+    transform .18s steps(2, end),
+    opacity var(--video-fade-ms, 420ms) cubic-bezier(.22, .72, .24, 1);
+  will-change: opacity, filter;
+}
+
+.cat-visual[data-runtime-cat] {
+  image-rendering: auto;
+}
+
+.night-field[data-video-transition="enter"] .cat-performance-stage {
+  animation: catVideoSignalIn var(--video-fade-ms, 420ms) linear both;
+}
+
+.night-field[data-video-transition="enter"] .cat-companion .cat-look {
+  animation: catIdleSignalOut var(--video-fade-ms, 420ms) linear both;
+}
+
+.night-field[data-video-transition="exit"] .cat-performance-stage {
+  animation: catVideoSignalOut var(--video-fade-ms, 420ms) linear both;
+}
+
+.night-field[data-video-transition="exit"] .cat-companion .cat-look {
+  animation: catIdleSignalIn var(--video-fade-ms, 420ms) linear both;
+}
+
+@keyframes catVideoSignalIn {
+  0% { opacity: 0; filter: brightness(1); }
+  14% { opacity: .16; filter: brightness(1.08) contrast(1.04); }
+  22% { opacity: 0; filter: brightness(.95); }
+  34% { opacity: .44; filter: brightness(1.06); }
+  43% { opacity: .17; }
+  68% { opacity: .82; }
+  100% { opacity: 1; filter: brightness(1); }
+}
+
+@keyframes catIdleSignalOut {
+  0% { opacity: 1; filter: brightness(1); }
+  14% { opacity: .72; filter: brightness(1.08); }
+  22% { opacity: 1; }
+  34% { opacity: .36; }
+  43% { opacity: .68; }
+  68% { opacity: .12; }
+  100% { opacity: 0; filter: brightness(1); }
+}
+
+@keyframes catVideoSignalOut {
+  0% { opacity: 1; filter: brightness(1); }
+  18% { opacity: .68; filter: brightness(1.06); }
+  28% { opacity: .14; }
+  40% { opacity: .46; }
+  52% { opacity: 0; }
+  100% { opacity: 0; filter: brightness(1); }
+}
+
+@keyframes catIdleSignalIn {
+  0% { opacity: 0; filter: brightness(1); }
+  18% { opacity: .18; filter: brightness(1.06); }
+  28% { opacity: .72; }
+  40% { opacity: .38; }
+  58% { opacity: .86; }
+  100% { opacity: 1; filter: brightness(1); }
+}
+
+/* v12.27：版权入口回到真正的微型透明印章，作者信息只在展开层出现。 */
+.copyright-butterfly {
+  width: 18px;
+  height: 18px;
+  color: var(--faint);
+  opacity: .7;
+}
+
+.butterfly-seal {
+  width: 15px;
+  height: 15px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.copyright-butterfly .butterfly-icon {
+  width: 10px;
+  height: 10px;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+@media (max-width: 760px) {
+  .copyright-butterfly {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.cat-companion.is-video-playing .cat-look,
+.cat-companion.is-video-playing .cat-shadow,
+.cat-companion.is-video-playing .cat-aura,
+.cat-companion.is-video-playing .cat-headsup,
+.cat-companion.is-video-playing .cat-fx {
+  opacity: 0;
+}
+
+.night-field[data-video-action="C03"] .cat-performance-stage,
+.night-field[data-video-action="C08"] .cat-performance-stage {
+  z-index: 7;
+}
+
+.night-field[data-video-action="C02"] .cat-performance {
+  image-rendering: auto;
+}
+
+.night-field[data-video-hold="true"] .cat-performance {
+  filter:
+    drop-shadow(0 0 15px color-mix(in srgb, var(--accent) 24%, transparent))
+    drop-shadow(7px 10px 0 color-mix(in srgb, var(--cat-pixel-shadow) 34%, transparent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-performance-stage {
+    display: none;
+  }
+}

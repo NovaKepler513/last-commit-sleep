@@ -1,0 +1,65 @@
+@import url("./last-commit-v12.22.css");
+
+/* v12.24：八段白猫视频表演层。保留静态猫作为加载、低动态和失败降级。 */
+
+.cat-performance-stage {
+  position: absolute;
+  inset: 0 0 31px 42%;
+  z-index: 4;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .16s ease-out;
+}
+
+.cat-performance {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 50%;
+  filter: drop-shadow(7px 10px 0 color-mix(in srgb, var(--cat-pixel-shadow) 34%, transparent));
+}
+
+.night-field[data-video-action] .cat-performance-stage {
+  opacity: 1;
+}
+
+.cat-companion.is-video-playing .cat-look,
+.cat-companion.is-video-playing .cat-shadow,
+.cat-companion.is-video-playing .cat-aura,
+.cat-companion.is-video-playing .cat-headsup,
+.cat-companion.is-video-playing .cat-fx {
+  opacity: 0;
+}
+
+.night-field[data-video-action="C03"] .cat-performance-stage,
+.night-field[data-video-action="C08"] .cat-performance-stage {
+  z-index: 7;
+}
+
+.night-field[data-video-action="C02"] .cat-performance {
+  image-rendering: auto;
+}
+
+.night-field[data-video-hold="true"] .cat-performance {
+  filter:
+    drop-shadow(0 0 15px color-mix(in srgb, var(--accent) 24%, transparent))
+    drop-shadow(7px 10px 0 color-mix(in srgb, var(--cat-pixel-shadow) 34%, transparent));
+}
+
+@media (max-width: 760px) {
+  .cat-performance-stage {
+    inset: 20% 0 70px;
+  }
+
+  .cat-performance {
+    object-position: 50% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-performance-stage {
+    display: none;
+  }
+}

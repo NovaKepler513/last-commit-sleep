@@ -1,0 +1,28 @@
+@import url("./last-commit-v12.10.css");
+
+/* v12.11：恢复舒展的原时间线，只修正节点关系与控件比例。 */
+
+.orbit-active {
+  stroke-dashoffset: 0;
+}
+
+.sleep-goal-stepper {
+  grid-template-columns: 26px 44px 26px;
+  width: 96px;
+}
+
+.sleep-goal-output {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+@media (min-width: 761px) {
+  .time-node {
+    width: clamp(136px, 11vw, 152px);
+  }
+}
