@@ -23,6 +23,7 @@ mkdir -p "$STAGE/assets/copyright-butterfly"
 mkdir -p "$STAGE/scripts"
 
 cp "$ROOT/index.html" "$STAGE/"
+cp "$ROOT/favicon.svg" "$STAGE/"
 cp "$ROOT/vercel.json" "$STAGE/"
 cp "$ROOT/Last Commit·早睡作息系统.html" "$STAGE/"
 cp "$ROOT/README.md" "$STAGE/"
