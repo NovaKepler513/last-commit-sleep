@@ -101,7 +101,10 @@ rm -f "$ARCHIVE" "$CHECKSUM"
   cd "$STAGE"
   bsdtar -a -cf "$ARCHIVE" .
 )
-shasum -a 256 "$ARCHIVE" > "$CHECKSUM"
+(
+  cd "$DESTINATION"
+  shasum -a 256 "$(basename "$ARCHIVE")" > "$(basename "$CHECKSUM")"
+)
 
 echo "$ARCHIVE"
 echo "$CHECKSUM"
