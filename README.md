@@ -6,11 +6,13 @@
 
 ## 在线体验
 
-正式体验地址：https://last-commit-sleep.pride17g68ir.chatgpt.site
+正式体验地址：https://last-commit-sleep.vercel.app
+
+开源仓库：https://github.com/NovaKepler513/last-commit-sleep
 
 当前已经公开，任何人打开链接都能直接进入，不需要 ChatGPT 登录，也不需要安装应用。
 
-这一版已经可以完整使用时间规划、交接清单、睡前步骤和睡眠月历。v12.29 保留伸展、眨眼、边缘探头、短睡和听秒针五段稳定视频；惊跳、碰爪和抓鼠标因镜头前冲造成明显身份漂移，暂时退回整猫像素动作。专注模式的观测月环已经归入猫的坐标系，不再悬在右上角。当前已部署为 Sites 第 19 版。加载慢、视频失败或系统偏好减少动态时，页面仍会回到定帧猫，不影响其他功能。
+这一版已经可以完整使用时间规划、交接清单、睡前步骤和睡眠月历。v12.30 沿用 v12.29 的猫咪动作与专注模式修复，重写了版权与开源说明，并正式迁入 Vercel。加载慢、视频失败或系统偏好减少动态时，页面仍会回到定帧猫，不影响其他功能。
 
 页面右下角有一只很小的蝴蝶。点开它，可以看到作者署名、开源代码和四套主题猫的使用说明。
 
@@ -96,7 +98,9 @@ CONTRIBUTING.md                参与方式
 
 ## 部署
 
-这是一个纯静态项目，可以部署到 GitHub Pages、Cloudflare Pages、Netlify 或其他静态托管服务：
+这是一个纯静态项目。当前通过 Vercel 托管，项目名为 `last-commit-sleep`，生产地址为 `https://last-commit-sleep.vercel.app`。GitHub 主分支已经连接 Vercel，新提交会触发自动发布。
+
+如果改用 GitHub Pages、Cloudflare Pages 或其他静态托管服务：
 
 1. 把本目录作为公开仓库根目录；
 2. 不需要安装依赖，也不需要填写环境变量；
