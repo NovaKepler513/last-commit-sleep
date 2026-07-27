@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-VERSION="${1:-v0.11.1-preview}"
+VERSION="${1:-v0.11.2-preview}"
 DESTINATION="${2:-$ROOT/release}"
 if [[ "$DESTINATION" != /* ]]; then
   DESTINATION="$ROOT/$DESTINATION"
@@ -23,6 +23,7 @@ mkdir -p "$STAGE/assets/copyright-butterfly"
 mkdir -p "$STAGE/scripts"
 
 cp "$ROOT/index.html" "$STAGE/"
+cp "$ROOT/favicon.ico" "$STAGE/"
 cp "$ROOT/favicon.svg" "$STAGE/"
 cp "$ROOT/vercel.json" "$STAGE/"
 cp "$ROOT/Last Commit·早睡作息系统.html" "$STAGE/"
@@ -54,6 +55,7 @@ for file in \
   last-commit-v12.24.css \
   last-commit-v12.25.css \
   last-commit-v12.31.css \
+  last-commit-v12.32.css \
   legal-v1.css \
   last-commit-v12.15.js \
   last-commit-v12.20.js \
@@ -65,19 +67,19 @@ do
   cp "$ROOT/assets/$file" "$STAGE/assets/"
 done
 
-cp "$ROOT/assets/pixel-cat/video-v2/"*.webm \
-  "$STAGE/assets/pixel-cat/video-v2/"
+for action in C02 C04 C06 C07
+do
+  cp "$ROOT/assets/pixel-cat/video-v2/$action.webm" \
+    "$STAGE/assets/pixel-cat/video-v2/"
+  cp "$ROOT/assets/pixel-cat/video-v2/$action.mov" \
+    "$STAGE/assets/pixel-cat/video-v2/"
+done
 
 for file in \
-  C01-poster.png \
   C02-poster.png \
-  C03-poster.png \
   C04-poster.png \
-  C05-poster.png \
   C06-poster.png \
   C07-poster.png \
-  C08-poster.png \
-  C08-hold.png \
   video-idle-native-v12.28.png
 do
   cp "$ROOT/assets/pixel-cat/video-v2/$file" \

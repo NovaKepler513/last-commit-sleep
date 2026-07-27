@@ -1,0 +1,29 @@
+@import url("./last-commit-v12.31.css");
+
+/* v12.32：撤掉会把整猫压扁的旧过场；手机端统一品牌与时间控件的光学轴。 */
+
+.cat-companion[data-reaction="nap"] .cat-visual,
+.night-field[data-focus-scene="sleep"] .cat-visual {
+  animation: none;
+}
+
+@media (max-width: 760px) {
+  .brand {
+    padding-inline-start: 4px;
+  }
+
+  .time-node {
+    grid-template-columns: 48px minmax(0, 1fr);
+    column-gap: 12px;
+    text-align: left;
+  }
+
+  .time-node label {
+    width: 48px;
+    text-align: left;
+  }
+
+  .time-picker-trigger {
+    min-width: 0;
+  }
+}
