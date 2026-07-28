@@ -94,14 +94,14 @@ CONTRIBUTING.md                参与方式
 
 ## 部署
 
-这是一个纯静态项目。当前通过 Vercel 托管，项目名为 `last-commit-sleep`，生产地址为 `https://last-commit-sleep.vercel.app`。GitHub 主分支已经连接 Vercel，新提交会触发自动发布。
+这是一个纯静态项目。当前通过 Vercel 托管，项目名为 `last-commit-sleep`，生产地址为 `https://last-commit-sleep.vercel.app`。GitHub 主分支已经连接 Vercel，新提交会触发自动发布。根地址由 `vercel.json` 直接重写到正式页面，不再经过浏览器跳转壳；入口短期缓存，版本化素材长期缓存。
 
 如果改用 GitHub Pages、Cloudflare Pages 或其他静态托管服务：
 
 1. 把本目录作为公开仓库根目录；
 2. 不需要安装依赖，也不需要填写环境变量；
 3. 发布目录选择仓库根目录；
-4. 确认根网址打开的是 `index.html`；
+4. 按托管平台的路由规则，让根网址直接返回 `Last Commit·早睡作息系统.html`，不要增加浏览器跳转壳；
 5. 发布后把真实网址补到本 README 的“在线体验”。
 
 ## 当前动作进度
