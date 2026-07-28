@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-VERSION="${1:-v0.11.2-preview}"
+VERSION="${1:-v0.12.0-preview}"
 DESTINATION="${2:-$ROOT/release}"
 if [[ "$DESTINATION" != /* ]]; then
   DESTINATION="$ROOT/$DESTINATION"
@@ -19,6 +19,7 @@ trap cleanup EXIT
 mkdir -p "$DESTINATION"
 mkdir -p "$STAGE/assets/pixel-cat/theme-v12.1"
 mkdir -p "$STAGE/assets/pixel-cat/video-v2"
+mkdir -p "$STAGE/assets/pixel-cat/video-v3"
 mkdir -p "$STAGE/assets/copyright-butterfly"
 mkdir -p "$STAGE/scripts"
 
@@ -65,6 +66,16 @@ for file in \
   last-commit-v12.25.js
 do
   cp "$ROOT/assets/$file" "$STAGE/assets/"
+done
+
+for action in C03 C05 C08 C09 C10 C11 C12 C13
+do
+  cp "$ROOT/assets/pixel-cat/video-v3/$action.webm" \
+    "$STAGE/assets/pixel-cat/video-v3/"
+  cp "$ROOT/assets/pixel-cat/video-v3/$action.mov" \
+    "$STAGE/assets/pixel-cat/video-v3/"
+  cp "$ROOT/assets/pixel-cat/video-v3/$action-poster.png" \
+    "$STAGE/assets/pixel-cat/video-v3/"
 done
 
 for action in C02 C04 C06 C07

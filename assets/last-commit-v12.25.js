@@ -92,6 +92,7 @@
     blink: { duration: 4042, priority: 20, status: "BLINK", detail: "one slow look", fx: "blink", lines: ["嗯？我看看。", "看见你啦。"] },
     nod: { duration: 980, priority: 30, status: "ACK", detail: "signal received", fx: "pulse", lines: ["好嘛，咪听见了。", "知道啦，尾巴替我点头。"] },
     walk: { duration: 1750, priority: 20, status: "PATROL", detail: "edge check", fx: "trail", lines: ["这里坐麻了，我去那边走两步。", "我去巡一圈，你接着忙。"] },
+    patrol: { duration: 6042, priority: 20, status: "ROUND", detail: "one careful loop", fx: "trail", lines: ["我绕着这块地方看一圈。", "刚才那边像有点动静，我去确认一下。"] },
     paw: { duration: 4042, priority: 30, status: "PAW", detail: "soft screen tap", fx: "pixels", lines: ["喏，爪子给你碰一下。", "只许碰一下爪垫哦。"] },
     hop: { duration: 4042, priority: 30, status: "STARTLED", detail: "all paws up", fx: "impact", lines: ["鼠标点得好重呀，吓我一跳。", "哎呀，四只脚都被你吓起来了。"] },
     stretch: { duration: 5042, priority: 20, status: "STRETCH", detail: "paws in grid", fx: "wave", lines: ["咪在像素格里伸个懒腰。", "爪尖碰到格子边啦。"] },
@@ -115,20 +116,30 @@
     breathe: { duration: 1700, priority: 50, status: "SLOW BREATH", detail: "belly up and down", fx: "purr", lines: ["慢慢来，我用小肚皮陪你呼吸。", "你慢慢呼，咪跟着一起一伏。"] },
     capture: { duration: 8042, priority: 90, status: "MOUSE CAUGHT", detail: "three-second paw hold", fx: "capture", lines: ["抓到啦。数到三再放你。", "这次真抓住了。三、二、一。"] }
   };
-  // v12.32：C01、C03、C08 的镜头前冲会放大猫身并漂移脸型；C05 的四足倒退不符合真实步态。
-  // 四段源视频继续留在 video-v2 供定点返修；当前运行时只保留已通过的 C02、C04、C06、C07。
+  petActions.peek = { duration: 6042, priority: 20, status: "PEEK", detail: "edge patrol", fx: "scan", lines: ["我去右边看看，马上回来。", "那边没东西，我绕回来啦。"] };
+  // v12.33：新批次通过的动作放在 video-v3；旧的稳定动作继续留在 video-v2。
+  // C01 悬空直立和带白色方块的 J9506 均不进入运行时。
   var videoActions = {
     stretch: { id: "C02", duration: 5042, startBox: [802, 296, 263, 328], transitionMs: 420 },
     blink: { id: "C04", duration: 4042, startBox: [802, 296, 263, 328], transitionMs: 360 },
     nap: { id: "C06", duration: 6042, startBox: [802, 296, 262, 328], transitionMs: 440 },
-    inspect: { id: "C07", duration: 5042, startBox: [802, 296, 263, 328], transitionMs: 340 }
+    inspect: { id: "C07", duration: 5042, startBox: [802, 296, 263, 328], transitionMs: 340 },
+    paw: { id: "C03", collection: "video-v3", duration: 4042, startBox: [802, 296, 263, 328], transitionMs: 380, foreground: true },
+    peek: { id: "C05", collection: "video-v3", duration: 6042, startBox: [803, 296, 262, 328], transitionMs: 420 },
+    capture: { id: "C08", collection: "video-v3", duration: 4042, startBox: [802, 296, 263, 328], transitionMs: 400, foreground: true, holdAt: 2.25, holdFor: 3000 },
+    walk: { id: "C09", collection: "video-v3", duration: 6000, startBox: [802, 296, 263, 328], transitionMs: 400 },
+    turn: { id: "C10", collection: "video-v3", duration: 4042, startBox: [802, 296, 263, 327], transitionMs: 380 },
+    scrub: { id: "C11", collection: "video-v3", duration: 5042, startBox: [802, 296, 263, 328], transitionMs: 380 },
+    purr: { id: "C12", collection: "video-v3", duration: 5000, startBox: [802, 296, 263, 328], transitionMs: 340 },
+    breathe: { id: "C12", collection: "video-v3", duration: 5000, startBox: [802, 296, 263, 328], transitionMs: 340 },
+    patrol: { id: "C13", collection: "video-v3", duration: 6042, startBox: [789, 296, 276, 328], transitionMs: 420 }
   };
   var idleCatSource = {
     width: 411,
     height: 411,
     visibleBox: [74, 29, 263, 328]
   };
-  var clickReactionIds = ["blink", "nod", "walk", "paw", "hop", "stretch", "nap", "hide", "glitch", "turn", "inspect", "scrub"];
+  var clickReactionIds = ["blink", "nod", "walk", "patrol", "paw", "hop", "stretch", "nap", "hide", "glitch", "turn", "inspect", "scrub", "peek"];
   var ambientReactionIds = ["blink", "walk", "stretch", "nap", "inspect", "scrub"];
   var focusScenes = [
     { id: "nudge", duration: 3900, status: "NOSE NUDGE", detail: "seconds +8px", line: "这两位挤到我胡子了，我拿鼻尖推开一点。" },
@@ -1517,7 +1528,7 @@
   function playPetVideo(actionId, token) {
     var performance = videoActions[actionId];
     if (!performance || !el.catPerformance || motionQuery.matches || transparentVideoSupport === false) return false;
-    var base = "assets/pixel-cat/video-v2/" + performance.id;
+    var base = "assets/pixel-cat/" + (performance.collection || "video-v2") + "/" + performance.id;
     var video = el.catPerformance;
     var iosDevice = /iPad|iPhone|iPod/.test(navigator.userAgent)
       || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
@@ -2025,7 +2036,7 @@
 
   function petSnapshot() {
     return {
-      version: "12.32",
+      version: "12.33",
       action: currentAction || "idle",
       priority: currentPriority,
       reaction: el.cat.dataset.reaction || "",
@@ -2039,6 +2050,7 @@
       focusMode: document.body.classList.contains("focus-mode"),
       hidden: document.hidden,
       reducedMotion: motionQuery.matches,
+      videoCollection: "video-v3",
       videoAlpha: transparentVideoSupport === null ? "untested" : (transparentVideoSupport ? "supported" : "fallback")
     };
   }
@@ -2047,7 +2059,7 @@
     if (!qaMode) return;
     document.documentElement.dataset.qa = "true";
     var lab = {
-      version: "12.32",
+      version: "12.33",
       actions: Object.keys(petActions),
       focusScenes: focusScenes.map(function (scene) { return scene.id; }),
       events: ["time-change", "task-add", "task-done", "all-done", "task-clear", "task-undo", "handoff", "warning", "theme", "breathe"],
