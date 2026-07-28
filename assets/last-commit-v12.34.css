@@ -1,0 +1,55 @@
+@import url("./last-commit-v12.32.css");
+
+/* v12.34: every video action hands off from the untouched idle pose. */
+
+.cat-companion.is-video-pending .cat-visual {
+  animation: none !important;
+  transform: none !important;
+  filter: none !important;
+  clip-path: none !important;
+}
+
+.cat-companion.is-video-pending .cat-scan,
+.cat-companion.is-video-pending .cat-fx {
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+/* One restrained signal flicker, followed by a clean cross-fade. */
+@keyframes catVideoSignalIn {
+  0% { opacity: 0; filter: brightness(1); }
+  36% { opacity: .36; filter: brightness(1.035); }
+  43% { opacity: .22; filter: brightness(.99); }
+  64% { opacity: .68; filter: brightness(1.015); }
+  100% { opacity: 1; filter: brightness(1); }
+}
+
+@keyframes catIdleSignalOut {
+  0% { opacity: 1; filter: brightness(1); }
+  36% { opacity: .64; filter: brightness(1.035); }
+  43% { opacity: .78; filter: brightness(.99); }
+  64% { opacity: .32; filter: brightness(1.015); }
+  100% { opacity: 0; filter: brightness(1); }
+}
+
+@keyframes catVideoSignalOut {
+  0% { opacity: 1; filter: brightness(1); }
+  36% { opacity: .64; filter: brightness(1.025); }
+  43% { opacity: .76; filter: brightness(.995); }
+  64% { opacity: .3; filter: brightness(1.01); }
+  100% { opacity: 0; filter: brightness(1); }
+}
+
+@keyframes catIdleSignalIn {
+  0% { opacity: 0; filter: brightness(1); }
+  36% { opacity: .36; filter: brightness(1.025); }
+  43% { opacity: .24; filter: brightness(.995); }
+  64% { opacity: .7; filter: brightness(1.01); }
+  100% { opacity: 1; filter: brightness(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-companion.is-video-pending .cat-visual {
+    animation: none !important;
+  }
+}

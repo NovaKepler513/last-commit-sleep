@@ -89,34 +89,34 @@
   var forceMorning = searchParams.get("morning") === "1" || searchParams.get("view") === "morning";
 
   var petActions = {
-    blink: { duration: 4042, priority: 20, status: "BLINK", detail: "one slow look", fx: "blink", lines: ["嗯？我看看。", "看见你啦。"] },
-    nod: { duration: 980, priority: 30, status: "ACK", detail: "signal received", fx: "pulse", lines: ["好嘛，咪听见了。", "知道啦，尾巴替我点头。"] },
-    walk: { duration: 1750, priority: 20, status: "PATROL", detail: "edge check", fx: "trail", lines: ["这里坐麻了，我去那边走两步。", "我去巡一圈，你接着忙。"] },
-    patrol: { duration: 6042, priority: 20, status: "ROUND", detail: "one careful loop", fx: "trail", lines: ["我绕着这块地方看一圈。", "刚才那边像有点动静，我去确认一下。"] },
-    paw: { duration: 4042, priority: 30, status: "PAW", detail: "soft screen tap", fx: "pixels", lines: ["喏，爪子给你碰一下。", "只许碰一下爪垫哦。"] },
-    hop: { duration: 4042, priority: 30, status: "STARTLED", detail: "all paws up", fx: "impact", lines: ["鼠标点得好重呀，吓我一跳。", "哎呀，四只脚都被你吓起来了。"] },
-    stretch: { duration: 5042, priority: 20, status: "STRETCH", detail: "paws in grid", fx: "wave", lines: ["咪在像素格里伸个懒腰。", "爪尖碰到格子边啦。"] },
-    nap: { duration: 6042, priority: 20, status: "NAP", detail: "one short curl", fx: "sleep", lines: ["我先趴一会儿，你忙完叫我。", "咪一下。你还没收工我就醒。"] },
-    hide: { duration: 1780, priority: 20, status: "HIDE", detail: "below viewport", fx: "trail", lines: ["我躲到页面下面啦，你找找。", "嘘，我的尾巴还露在外面。"] },
-    glitch: { duration: 1080, priority: 30, status: "GLITCH", detail: "one frame loose", fx: "glitch", lines: ["咦，我刚才是不是闪了一下？", "屏幕眨了下眼，咪也跟着闪了一帧。"] },
-    turn: { duration: 1460, priority: 30, status: "TURN", detail: "checking behind", fx: "pixels", lines: ["后面好像有声音，我转过去看看。", "尾巴说那边有动静。"] },
-    inspect: { duration: 5042, priority: 30, status: "LISTEN", detail: "tail hears ticks", fx: "scan", lines: ["嘘，秒针在走。我的尾巴听见了。", "刚才是不是又过去了一秒？"] },
-    scrub: { duration: 1560, priority: 20, status: "GROOM", detail: "pixel on whisker", fx: "sparks", lines: ["等等，胡子上粘了个小方块。", "舔一下。刚才那格像素有点扎嘴。"] },
-    compile: { duration: 1780, priority: 50, status: "TIME WALK", detail: "three stops", fx: "compile", lines: ["你把时间挪好啦，我沿着三格走了一遍。", "收工、睡觉、起床，咪都闻过了。"] },
-    packet: { duration: 1420, priority: 50, status: "TASK +1", detail: "under one paw", fx: "packet", lines: ["明早又多一件事，我先拿爪子压住。", "放这儿吧，明早咪先看到它。"] },
-    pass: { duration: 1280, priority: 50, status: "DONE", detail: "tail up", fx: "pass", lines: ["这一件打勾啦，尾巴可以翘一下。", "做完一件，爪垫轻松一格。"] },
-    rollback: { duration: 1450, priority: 50, status: "BACK", detail: "carried back", fx: "rollback", lines: ["呀，又要做啦？我把它叼回来。", "好嘛，先放回来，别让它跑掉。"] },
-    purge: { duration: 1460, priority: 50, status: "CLEAR", detail: "hidden nearby", fx: "purge", lines: ["清单先收起来啦，我藏在垫子底下。", "我先把这些叼走，想起来还能拿回来。"] },
-    handoff: { duration: 2100, priority: 60, status: "SAVED", detail: "ready for morning", fx: "commit", lines: ["我记住啦，明早你一来，我就把这页翻给你。", "今晚停在这里，明早咪陪你接着做。"] },
-    celebrate: { duration: 2300, priority: 65, status: "ALL DONE", detail: "head pats open", fx: "celebrate", lines: ["都做完啦！这次可以摸摸我的头。", "一件都没有了，咪要把尾巴翘高一点。"] },
-    warning: { duration: 1900, priority: 70, status: "TIME", detail: "tail at stop line", fx: "warning", lines: ["到收工的点啦，先把手里这一下做完。", "时间走到脚边了，我来催你收尾。"] },
-    theme: { duration: 1450, priority: 45, status: "NEW FUR", detail: "light changed", fx: "theme", lines: ["咦，光变了，我的毛也换了颜色。", "这身新毛好看吗？"] },
-    purr: { duration: 2600, priority: 60, status: "PURR", detail: "hold to feel", fx: "purr", lines: ["听见了吗？这是屏幕里最小声的呼噜。", "再按一会儿嘛，咪还没呼噜够。"] },
-    reboot: { duration: 2200, priority: 65, status: "DOUBLE TAP", detail: "two clicks at once", fx: "reboot", lines: ["哎呀，连点两下，我都不知道先看哪一下。", "别急嘛，我还在这儿。"] },
-    breathe: { duration: 1700, priority: 50, status: "SLOW BREATH", detail: "belly up and down", fx: "purr", lines: ["慢慢来，我用小肚皮陪你呼吸。", "你慢慢呼，咪跟着一起一伏。"] },
-    capture: { duration: 8042, priority: 90, status: "MOUSE CAUGHT", detail: "three-second paw hold", fx: "capture", lines: ["抓到啦。数到三再放你。", "这次真抓住了。三、二、一。"] }
+    blink: { duration: 4042, priority: 20, status: "BLINK", detail: "one slow look", fx: "blink", lines: ["嗯？", "咪看见你啦。"] },
+    nod: { duration: 980, priority: 30, status: "ACK", detail: "signal received", fx: "pulse", lines: ["好，咪听见了。", "嗯嗯。"] },
+    walk: { duration: 1750, priority: 20, status: "PATROL", detail: "edge check", fx: "trail", lines: ["坐麻啦，咪走两步。", "咪去转一圈。"] },
+    patrol: { duration: 6042, priority: 20, status: "ROUND", detail: "one careful loop", fx: "trail", lines: ["咪去看看那边。", "咪绕一圈就回来。"] },
+    paw: { duration: 4042, priority: 30, status: "PAW", detail: "soft screen tap", fx: "pixels", lines: ["爪爪给你。", "轻一点碰哦。"] },
+    hop: { duration: 4042, priority: 30, status: "STARTLED", detail: "all paws up", fx: "impact", lines: ["呀！吓咪一跳。", "四只脚都弹起来啦。"] },
+    stretch: { duration: 5042, priority: 20, status: "STRETCH", detail: "paws in grid", fx: "wave", lines: ["等一下，咪伸个懒腰。", "爪子都伸开啦。"] },
+    nap: { duration: 6042, priority: 20, status: "NAP", detail: "one short curl", fx: "sleep", lines: ["咪先趴一会儿。", "叫咪的时候轻一点。"] },
+    hide: { duration: 1780, priority: 20, status: "HIDE", detail: "below viewport", fx: "trail", lines: ["咪藏好啦。", "尾巴不许看。"] },
+    glitch: { duration: 1080, priority: 30, status: "GLITCH", detail: "one frame loose", fx: "glitch", lines: ["咦，咪闪了一下。", "刚才打了个小哆嗦。"] },
+    turn: { duration: 1460, priority: 30, status: "TURN", detail: "checking behind", fx: "pixels", lines: ["后面有声音。", "咪回头看看。"] },
+    inspect: { duration: 5042, priority: 30, status: "LISTEN", detail: "tail hears ticks", fx: "scan", lines: ["嘘，咪听见秒针了。", "又过一秒。"] },
+    scrub: { duration: 1560, priority: 20, status: "GROOM", detail: "pixel on whisker", fx: "sparks", lines: ["胡子上沾东西啦。", "舔干净。"] },
+    compile: { duration: 1780, priority: 50, status: "TIME WALK", detail: "three stops", fx: "compile", lines: ["时间挪好啦，咪看过了。", "嗯，这样就好。"] },
+    packet: { duration: 1420, priority: 50, status: "TASK +1", detail: "under one paw", fx: "packet", lines: ["放这儿，咪压着。", "明早咪提醒你。"] },
+    pass: { duration: 1280, priority: 50, status: "DONE", detail: "tail up", fx: "pass", lines: ["这件好啦。", "尾巴翘一下。"] },
+    rollback: { duration: 1450, priority: 50, status: "BACK", detail: "carried back", fx: "rollback", lines: ["又回来啦？咪叼着。", "先放回这里。"] },
+    purge: { duration: 1460, priority: 50, status: "CLEAR", detail: "hidden nearby", fx: "purge", lines: ["咪先收走啦。", "藏到垫子下面。"] },
+    handoff: { duration: 2100, priority: 60, status: "SAVED", detail: "ready for morning", fx: "commit", lines: ["咪记住啦，明早给你。", "好，今晚到这里。"] },
+    celebrate: { duration: 2300, priority: 65, status: "ALL DONE", detail: "head pats open", fx: "celebrate", lines: ["都好啦，摸摸咪。", "尾巴要翘起来啦。"] },
+    warning: { duration: 1900, priority: 70, status: "TIME", detail: "tail at stop line", fx: "warning", lines: ["到点啦，收一收。", "咪来催你收尾啦。"] },
+    theme: { duration: 1450, priority: 45, status: "NEW FUR", detail: "light changed", fx: "theme", lines: ["咦，灯光变啦。", "咪换了件新毛衣。"] },
+    purr: { duration: 2600, priority: 60, status: "PURR", detail: "hold to feel", fx: "purr", lines: ["听，咪在呼噜。", "再摸一会儿嘛。"] },
+    reboot: { duration: 2200, priority: 65, status: "DOUBLE TAP", detail: "two clicks at once", fx: "reboot", lines: ["呀，点了两下。", "慢一点，咪在呢。"] },
+    breathe: { duration: 1700, priority: 50, status: "SLOW BREATH", detail: "belly up and down", fx: "purr", lines: ["慢慢呼，咪陪你。", "咪的小肚皮也在动。"] },
+    capture: { duration: 8042, priority: 90, status: "MOUSE CAUGHT", detail: "three-second paw hold", fx: "capture", lines: ["抓到啦，等三秒。", "不许跑。三、二、一。"] }
   };
-  petActions.peek = { duration: 6042, priority: 20, status: "PEEK", detail: "edge patrol", fx: "scan", lines: ["我去右边看看，马上回来。", "那边没东西，我绕回来啦。"] };
+  petActions.peek = { duration: 6042, priority: 20, status: "PEEK", detail: "edge patrol", fx: "scan", lines: ["咪去右边看看。", "没东西，咪回来啦。"] };
   // v12.33：新批次通过的动作放在 video-v3；旧的稳定动作继续留在 video-v2。
   // C01 悬空直立和带白色方块的 J9506 均不进入运行时。
   var videoActions = {
@@ -139,16 +139,18 @@
     height: 411,
     visibleBox: [74, 29, 263, 328]
   };
-  var clickReactionIds = ["blink", "nod", "walk", "patrol", "paw", "hop", "stretch", "nap", "hide", "glitch", "turn", "inspect", "scrub", "peek"];
+  // A normal cat click must select an authored video performance. Code-native
+  // reactions remain available only for explicit fallback and system states.
+  var clickReactionIds = ["blink", "walk", "patrol", "paw", "stretch", "nap", "turn", "inspect", "scrub", "peek"];
   var ambientReactionIds = ["blink", "walk", "stretch", "nap", "inspect", "scrub"];
   var focusScenes = [
-    { id: "nudge", duration: 3900, status: "NOSE NUDGE", detail: "seconds +8px", line: "这两位挤到我胡子了，我拿鼻尖推开一点。" },
-    { id: "watch", duration: 4300, status: "EAR WATCH", detail: "one twitch per tick", line: "秒数每跳一下，我的耳朵就跟一下。" },
+    { id: "nudge", duration: 3900, status: "NOSE NUDGE", detail: "seconds +8px", line: "这两个数挤到咪胡子啦，推一下。" },
+    { id: "watch", duration: 4300, status: "EAR WATCH", detail: "one twitch per tick", line: "每跳一下，咪耳朵就动一下。" },
     { id: "cross", duration: 4900, status: "NUMBER WALK", detail: "timer edge", line: "数字这么大，够咪慢慢巡一圈。" },
-    { id: "pounce", duration: 3800, status: "READY TO POUNCE", detail: "next second", line: "等下一秒蹦出来，我就扑上去。" },
-    { id: "checksum", duration: 4200, status: "SNIFF CHECK", detail: "hh:mm:ss", line: "我挨个闻过啦，时、分、秒都没有偷跑。" },
-    { id: "borrow", duration: 3900, status: "TINY SNACK", detail: "colon x1", line: "冒号像两粒猫粮，我就叼走一粒哦。" },
-    { id: "cursor", duration: 4100, status: "SECOND GUARD", detail: "watching last two", line: "我趴在最后两位旁边，看它们还会不会乱跑。" }
+    { id: "pounce", duration: 3800, status: "READY TO POUNCE", detail: "next second", line: "下一秒出来，咪就扑。" },
+    { id: "checksum", duration: 4200, status: "SNIFF CHECK", detail: "hh:mm:ss", line: "咪闻过啦，三个都乖。" },
+    { id: "borrow", duration: 3900, status: "TINY SNACK", detail: "colon x1", line: "冒号像猫粮，咪叼一粒。" },
+    { id: "cursor", duration: 4100, status: "SECOND GUARD", detail: "watching last two", line: "咪趴这儿看最后两位。" }
   ];
 
   var el = {
@@ -614,10 +616,10 @@
     if (petReady && changed && persist !== false) {
       playPetAction("theme", {
         line: {
-          tide: "这片蓝有点像窗外，我穿白毛正好。",
-          paper: "页面亮起来啦，我换身深色毛陪你。",
-          plum: "粉色的光落到耳朵上了，暖暖的。",
-          dawn: "今天是天青色，腿上的小环也亮了。"
+          tide: "蓝蓝的，咪喜欢。",
+          paper: "亮起来啦，咪换件深色的。",
+          plum: "粉粉的，耳朵都暖啦。",
+          dawn: "天青色，咪醒一点啦。"
         }[theme]
       });
     }
@@ -818,7 +820,7 @@
       if (el.planFeedback.textContent.indexOf("往前推") !== -1) el.planFeedback.textContent = "";
     }, 3600);
     playPetAction("compile", {
-      line: "咪从 " + state.wake + " 往回走过一遍：" + state.off + " 收工，" + state.bed + " 钻进被窝。"
+      line: "好啦，咪替你看着时间。"
     });
   }
 
@@ -849,11 +851,11 @@
         renderTasks();
         var allDone = state.tasks.length && state.tasks.every(function (itemTask) { return itemTask.done; });
         if (allDone) {
-          playPetAction("celebrate", { line: isMorningReview() ? "今天的事都打勾啦，摸摸我的头嘛。" : "明早的清单空啦，尾巴要翘高一点。" });
+          playPetAction("celebrate", { line: isMorningReview() ? "今天都好啦，摸摸咪嘛。" : "明早的清单空啦，尾巴翘起来。" });
         } else if (task.done) {
-          playPetAction("pass", { line: "“" + task.text + "”打勾啦，这件可以放下了。" });
+          playPetAction("pass", { line: "这件好啦。" });
         } else {
-          playPetAction("rollback", { line: "“" + task.text + "”还要做呀？咪给你叼回来。" });
+          playPetAction("rollback", { line: "还要做呀？咪叼回来。" });
         }
       });
 
@@ -870,7 +872,7 @@
         state.tasks = state.tasks.filter(function (itemTask) { return itemTask.id !== task.id; });
         saveState();
         renderTasks();
-        playPetAction("purge", { line: isMorningReview() ? "这条咪先叼走啦，今天轻一点。" : "这条咪先叼走啦，明早少一件。" });
+        playPetAction("purge", { line: "这条咪叼走啦。" });
       });
 
       item.append(check, text, remove);
@@ -893,7 +895,7 @@
     el.taskInput.value = "";
     saveState();
     renderTasks();
-    playPetAction("packet", { line: isMorningReview() ? "“" + text + "”放这儿，咪今天帮你盯着。" : "“" + text + "”放这儿，明早咪先看到它。" });
+    playPetAction("packet", { line: isMorningReview() ? "放这儿，咪帮你盯着。" : "放这儿，明早咪提醒你。" });
   }
 
   function clearTasks() {
@@ -936,11 +938,11 @@
         saveState();
         renderWinddown();
         if (state.checks.every(Boolean)) {
-          playPetAction("celebrate", { line: "都收好啦，我先去床边占个暖位置。" });
+          playPetAction("celebrate", { line: "都收好啦，咪去床边占个位置。" });
         } else if (state.checks[index]) {
-          playPetAction("pass", { line: "这件好啦，还剩 " + state.checks.filter(function (checked) { return !checked; }).length + " 件，咪陪你慢慢收。" });
+          playPetAction("pass", { line: "好一件啦。" });
         } else {
-          playPetAction("rollback", { line: "这件还没好呀？那咪先给你放回来。" });
+          playPetAction("rollback", { line: "这件先放回来。" });
         }
       });
       var time = document.createElement("time");
@@ -1110,7 +1112,7 @@
     el.breathToggle.textContent = "再来";
     el.breathReset.hidden = false;
     setBreathScale(1);
-    playPetAction("nod", { force: true, line: "三轮啦。咪听见你的呼吸慢下来了。" });
+    playPetAction("nod", { force: true, line: "三轮啦，慢慢睁眼。" });
   }
 
   function renderBreathing(now) {
@@ -1339,7 +1341,7 @@
     renderTasks();
     renderWinddown();
     renderPhase(new Date());
-    playPetAction("rollback", { force: true, line: "好嘛，今晚重新来。时间和月历还在原地。" });
+    playPetAction("rollback", { force: true, line: "好嘛，今晚重新来。" });
   }
 
   function setActiveZone(zone) {
@@ -1372,7 +1374,10 @@
 
   function speakCat(line) {
     window.clearTimeout(speechTimer);
-    el.catLine.textContent = line;
+    el.catLine.textContent = String(line || "")
+      .replace(/[\p{P}\p{S}]+/gu, " ")
+      .replace(/\s+/g, " ")
+      .trim();
     el.catLine.removeAttribute("data-speaking");
     void el.catLine.offsetWidth;
     el.catLine.dataset.speaking = "true";
@@ -1446,7 +1451,7 @@
     } catch (error) {
       // Metadata may not have loaded yet. The next source assignment resets it.
     }
-    el.cat.classList.remove("is-video-playing");
+    el.cat.classList.remove("is-video-pending", "is-video-playing");
     el.tonight.removeAttribute("data-video-action");
     el.tonight.removeAttribute("data-video-hold");
     el.tonight.removeAttribute("data-video-ready");
@@ -1532,11 +1537,16 @@
     var video = el.catPerformance;
     var iosDevice = /iPad|iPhone|iPod/.test(navigator.userAgent)
       || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    var hevcAlphaType = video.canPlayType('video/quicktime; codecs="hvc1"')
-      || video.canPlayType('video/mp4; codecs="hvc1"');
-    var source = iosDevice && hevcAlphaType ? base + ".mov" : base + ".webm";
+    // All iOS browsers share WebKit. canPlayType() is inconsistent about
+    // HEVC-with-alpha, so choosing WebM there can silently force every action
+    // into the static fallback even though the MOV is the supported asset.
+    var source = iosDevice ? base + ".mov" : base + ".webm";
     stopPetVideo();
     activeVideoPerformance = performance;
+    // Lock the still actor in its native idle pose while the first decoded
+    // frame is being checked. Old code-native reactions must never flash on
+    // screen before a video performance takes over.
+    el.cat.classList.add("is-video-pending");
     alignPetVideo(performance);
     video.poster = base + "-poster.png";
     if (video.getAttribute("src") !== source) {
@@ -1889,7 +1899,7 @@
     var buffer = durationMinutes(state.off, state.bed);
     if (buffer < 30) {
       playPetAction("warning", {
-        line: "只剩 " + buffer + " 分钟洗漱啦，咪的尾巴都塞不进这条缝。"
+        line: "只剩 " + buffer + " 分钟啦，快去洗漱。"
       });
     } else {
       playPetAction("compile", { line: labels[select.id] });
@@ -2019,11 +2029,11 @@
 
   function qaEvent(name) {
     var map = {
-      "time-change": ["compile", "时间挪好啦，三格我都踩过一遍。"],
+      "time-change": ["compile", "时间挪好啦，咪看过了。"],
       "task-add": ["packet", "明早多一件事，咪先拿爪子压住。"],
       "task-done": ["pass", "这件打勾啦，可以放下了。"],
       "all-done": ["celebrate", "明早的清单空啦，摸摸咪的头嘛。"],
-      "task-clear": ["purge", "我先把清单藏好，反悔了还能找回来。"],
+      "task-clear": ["purge", "咪先把清单藏好。"],
       "task-undo": ["rollback", "好嘛，又给你叼回来啦。"],
       "handoff": ["handoff", "咪记住这里啦，明早接着来。"],
       "warning": ["warning", "到点啦，咪来催你收尾。"],
@@ -2036,7 +2046,7 @@
 
   function petSnapshot() {
     return {
-      version: "12.33",
+      version: "12.34.3",
       action: currentAction || "idle",
       priority: currentPriority,
       reaction: el.cat.dataset.reaction || "",
@@ -2050,6 +2060,8 @@
       focusMode: document.body.classList.contains("focus-mode"),
       hidden: document.hidden,
       reducedMotion: motionQuery.matches,
+      videoPending: el.cat.classList.contains("is-video-pending"),
+      videoPlaying: el.cat.classList.contains("is-video-playing"),
       videoCollection: "video-v3",
       videoAlpha: transparentVideoSupport === null ? "untested" : (transparentVideoSupport ? "supported" : "fallback")
     };
@@ -2059,7 +2071,7 @@
     if (!qaMode) return;
     document.documentElement.dataset.qa = "true";
     var lab = {
-      version: "12.33",
+      version: "12.34.3",
       actions: Object.keys(petActions),
       focusScenes: focusScenes.map(function (scene) { return scene.id; }),
       events: ["time-change", "task-add", "task-done", "all-done", "task-clear", "task-undo", "handoff", "warning", "theme", "breathe"],
