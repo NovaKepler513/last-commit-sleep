@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-VERSION="${1:-v0.12.1-preview}"
+VERSION="${1:-v0.12.2-preview}"
 DESTINATION="${2:-$ROOT/release}"
 if [[ "$DESTINATION" != /* ]]; then
   DESTINATION="$ROOT/$DESTINATION"
@@ -23,7 +23,6 @@ mkdir -p "$STAGE/assets/pixel-cat/video-v3"
 mkdir -p "$STAGE/assets/copyright-butterfly"
 mkdir -p "$STAGE/scripts"
 
-cp "$ROOT/index.html" "$STAGE/"
 cp "$ROOT/favicon.ico" "$STAGE/"
 cp "$ROOT/favicon.svg" "$STAGE/"
 cp "$ROOT/vercel.json" "$STAGE/"
